@@ -1,19 +1,43 @@
 (function() {
 
-  var loginController = function($scope, $location, $mdDialog, $mdToast, $window, userFactory) {
+  var loginController = function($rootScope, $scope, $location, $mdDialog, $mdToast, $window, $translate, userFactory) {
 
     $scope.username = this.username;
     $scope.password = this.password;
+
+    //Translations
+
+    var lang = $window.navigator.language || $window.navigator.userLanguage;
+    if(lang == 'es' || lang == 'es-ES') {
+      console.log('Se detecta idioma español');
+      $translate.use(lang);
+    } else {
+      console.log('English language is detected');
+      $translate.use('en');
+    }
+
+    $translate(['error_dialog_title', 'error_dialog_content', 'dialog_ok', 'login_error'])
+    .then(function (translations) {
+      $scope.error_dialog_title = translations.error_dialog_title;
+      $scope.error_dialog_content = translations.error_dialog_content;
+      $scope.dialog_ok = translations.dialog_ok;
+      $scope.login_error = translations.login_error;
+    }, function (translationIds) {
+      $scope.error_dialog_title = translationIds.error_dialog_title;
+      $scope.error_dialog_content = translationIds.error_dialog_content;
+      $scope.dialog_ok = translationIds.dialog_ok;
+      $scope.login_error = translationIds.login_error;
+    });
 
     //Error dialog
     $scope.showAlert = function() {
     $mdDialog.show(
       $mdDialog.alert()
         .clickOutsideToClose(false)
-        .title('Error')
-        .textContent('There is a network error. Check your connection.')
+        .title($scope.error_dialog_title)
+        .textContent($scope.error_dialog_content)
         .ariaLabel('Error dialog')
-        .ok('Ok')
+        .ok($scope.dialog_ok)
       );
     };
 
@@ -33,7 +57,7 @@
             //Go to kanban application
             $location.path('/kanban');
           } else { //authentication error
-            $mdToast.show($mdToast.simple().textContent("Error: " + response.message));
+            $mdToast.show($mdToast.simple().textContent($scope.login_error));
           }
         })
         .error(function(response, status) {
@@ -48,7 +72,7 @@
 
   };
 
-  loginController.$inject = ['$scope', '$location', '$mdDialog', '$mdToast', '$window', 'userFactory'];
+  loginController.$inject = ['$rootScope', '$scope', '$location', '$mdDialog', '$mdToast', '$window', '$translate', 'userFactory'];
 
   angular.module('kanban-board')
     .controller('loginController', loginController);

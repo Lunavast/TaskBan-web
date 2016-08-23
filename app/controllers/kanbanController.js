@@ -1,7 +1,7 @@
 (function() {
 
-  var kanbanController = function($scope, $mdSidenav, $log, $mdDialog, $mdToast,
-    $location, $window, $interval, kanbanFactory, dragulaService) {
+  var kanbanController = function($rootScope, $scope, $mdSidenav, $log, $mdDialog, $mdToast,
+    $location, $window, $interval, $translate, $route, kanbanFactory, dragulaService) {
 
     //Boards array
     $scope.boards = [];
@@ -21,15 +21,116 @@
     this.username = $window.sessionStorage.getItem('username');
     this.email = $window.sessionStorage.getItem('email');
 
+    $scope.translateToEnglish = function() {
+      $translate.use('en');
+      $route.reload();
+    };
+
+    $scope.translateToSpanish = function() {
+      $translate.use('es');
+      $route.reload();
+    };
+
+    //Translations
+    $translate(['logout', 'create', 'create_card', 'create_board', 'edit_name', 'edit_description',
+    'delete_board', 'edit_card', 'delete_card', 'first_kanban_name', 'first_kanban_description',
+    'error_dialog_title', 'error_dialog_content', 'logout_dialog_title', 'logout_dialog_title',
+    'logout_dialog_content', 'createcard_dialog_title', 'createcard_dialog_content',
+    'createcard_error', 'editcard_dialog_title', 'editcard_error', 'deletecard_dialog_title',
+    'deletecard_dialog_content', 'deletecard_error', 'createboard_dialog_name',
+    'createboard_dialog_description', 'createboard_error', 'editboard_dialog_name',
+    'editboard_dialog_description', 'editboard_error', 'deleteboard_dialog_title',
+    'deleteboard_dialog_content', 'deleteboard_error', 'dialog_ok', 'dialog_cancel', 'dialog_save',
+    'dialog_next', 'dialog_title', 'dialog_description'])
+    .then(function (translations) {
+      $scope.logout = translations.logout;
+      $scope.create = translations.create;
+      $scope.create_card = translations.create_card;
+      $scope.create_board = translations.create_board;
+      $scope.edit_name = translations.edit_name;
+      $scope.edit_description = translations.edit_description;
+      $scope.delete_board = translations.delete_board;
+      $scope.edit_card = translations.edit_card;
+      $scope.delete_card = translations.delete_card;
+      $scope.first_kanban_name = translations.first_kanban_name;
+      $scope.first_kanban_description = translations.first_kanban_description;
+      $scope.error_dialog_title = translations.error_dialog_title;
+      $scope.error_dialog_content = translations.error_dialog_content;
+      $scope.logout_dialog_title = translations.logout_dialog_title;
+      $scope.logout_dialog_content = translations.logout_dialog_content;
+      $scope.createcard_dialog_title = translations.createcard_dialog_title;
+      $scope.createcard_dialog_content = translations.createcard_dialog_content;
+      $scope.createcard_error = translations.createcard_error;
+      $scope.editcard_dialog_title = translations.editcard_dialog_title;
+      $scope.editcard_error = translations.editcard_error;
+      $scope.deletecard_dialog_title = translations.deletecard_dialog_title;
+      $scope.deletecard_dialog_content = translations.deletecard_dialog_content;
+      $scope.deletecard_error = translations.deletecard_error;
+      $scope.createboard_dialog_name = translations.createboard_dialog_name;
+      $scope.createboard_dialog_description = translations.createboard_dialog_description;
+      $scope.createboard_error = translations.createboard_error;
+      $scope.editboard_dialog_name = translations.editboard_dialog_name;
+      $scope.editboard_dialog_description = translations.editboard_dialog_description;
+      $scope.editboard_error = translations.editboard_error;
+      $scope.deleteboard_dialog_title = translations.deleteboard_dialog_title;
+      $scope.deleteboard_dialog_content = translations.deleteboard_dialog_content;
+      $scope.deleteboard_error = translations.deleteboard_error;
+      $scope.dialog_ok = translations.dialog_ok;
+      $scope.dialog_cancel = translations.dialog_cancel;
+      $scope.dialog_save = translations.dialog_save;
+      $scope.dialog_next = translations.dialog_next;
+      $scope.dialog_title = translations.dialog_title;
+      $scope.dialog_description = translations.dialog_description;
+    }, function (translationIds) {
+      $scope.logout = translationIds.logout;
+      $scope.create = translationIds.create;
+      $scope.create_card = translationIds.create_card;
+      $scope.create_board = translationIds.create_board;
+      $scope.edit_name = translationIds.edit_name;
+      $scope.edit_description = translationIds.edit_description;
+      $scope.delete_board = translationIds.delete_board;
+      $scope.edit_card = translationIds.edit_card;
+      $scope.delete_card = translationIds.delete_card;
+      $scope.first_kanban_name = translationIds.first_kanban_name;
+      $scope.first_kanban_description = translationIds.first_kanban_description;
+      $scope.error_dialog_title = translationIds.error_dialog_title;
+      $scope.error_dialog_content = translationIds.error_dialog_content;
+      $scope.logout_dialog_title = translationIds.logout_dialog_title;
+      $scope.logout_dialog_content = translationIds.logout_dialog_content;
+      $scope.createcard_dialog_title = translationIds.createcard_dialog_title;
+      $scope.createcard_dialog_content = translationIds.createcard_dialog_content;
+      $scope.createcard_error = translationIds.createcard_error;
+      $scope.editcard_dialog_title = translationIds.editcard_dialog_title;
+      $scope.editcard_error = translationIds.editcard_error;
+      $scope.deletecard_dialog_title = translationIds.deletecard_dialog_title;
+      $scope.deletecard_dialog_content = translationIds.deletecard_dialog_content;
+      $scope.deletecard_error = translationIds.deletecard_error;
+      $scope.createboard_dialog_name = translationIds.createboard_dialog_name;
+      $scope.createboard_dialog_description = translationIds.createboard_dialog_description;
+      $scope.createboard_error = translationIds.createboard_error;
+      $scope.editboard_dialog_name = translationIds.editboard_dialog_name;
+      $scope.editboard_dialog_description = translationIds.editboard_dialog_description;
+      $scope.editboard_error = translationIds.editboard_error;
+      $scope.deleteboard_dialog_title = translationIds.deleteboard_dialog_title;
+      $scope.deleteboard_dialog_content = translationIds.deleteboard_dialog_content;
+      $scope.deleteboard_error = translationIds.deleteboard_error;
+      $scope.dialog_ok = translationIds.dialog_ok;
+      $scope.dialog_cancel = translationIds.dialog_cancel;
+      $scope.dialog_save = translationIds.dialog_save;
+      $scope.dialog_next = translationIds.dialog_next;
+      $scope.dialog_title = translationIds.dialog_title;
+      $scope.dialog_description = translationIds.dialog_description;
+    });
+
     //Error dialog
     $scope.showAlert = function() {
     $mdDialog.show(
       $mdDialog.alert()
         .clickOutsideToClose(false)
-        .title('Error')
-        .textContent('There is a network error. Check your connection.')
+        .title($scope.error_dialog_title)
+        .textContent($scope.error_dialog_content)
         .ariaLabel('Error dialog')
-        .ok('Ok')
+        .ok($scope.dialog_ok)
       );
     };
 
@@ -201,10 +302,12 @@
 
     $scope.$on('first-bag.drag', function (e, el, container, source) {
       $scope.dragging = true;
+      console.log("Dragging card...");
     });
 
     //Handles moving cards to different containers, and editing and saving them
     $scope.$on('first-bag.drop', function (e, el, container, source) {
+      console.log("Card dropped!");
       $scope.dragging = false;
       var card = el.scope().card;
       if(container.parent().hasClass('ready') == true) {
@@ -225,6 +328,14 @@
       $scope.editCard(card); //Edita la tarjeta y la guarda
     });
 
+    $scope.$on('second-bag.over', function (e, el, container) {
+      console.log("Card over a bag...");
+    });
+
+    $scope.$on('second-bag.out', function (e, el, container) {
+      console.log("Card out a bag...");
+    });
+
     //Left sidenav action
     $scope.toggleLeft = function() {
       $mdSidenav('left').toggle().then(function(){
@@ -235,12 +346,12 @@
     //logout function
     $scope.logoutDialog = function(ev) {
       var dialog = $mdDialog.confirm()
-            .title('Close session')
-            .textContent('Are you sure you want to close the session?')
+            .title($scope.logout_dialog_title)
+            .textContent($scope.logout_dialog_content)
             .ariaLabel('Logout')
             .targetEvent(ev)
-            .ok('ok')
-            .cancel('cancel');
+            .ok($scope.dialog_ok)
+            .cancel($scope.dialog_cancel);
       $mdDialog.show(dialog).then(function() {
         kanbanFactory.logout()
           .success(function(response) {
@@ -261,30 +372,30 @@
     //Show the dialog to create a new card
     $scope.addNewCardDialog = function(ev) {
       var dialog = $mdDialog.prompt()
-            .title('Create new card')
-            .textContent('Enter the description')
-            .placeholder('description')
+            .title($scope.createcard_dialog_title)
+            .textContent($scope.createcard_dialog_content)
+            .placeholder($scope.dialog_description)
             .ariaLabel('Card description')
             .targetEvent(ev)
-            .ok('save')
-            .cancel('cancel');
+            .ok($scope.dialog_save)
+            .cancel($scope.dialog_cancel);
       $mdDialog.show(dialog).then(function(result) {
         var card = { content: result, category: 'ready' };
         if(card.content != '' && card.content != undefined) {
           $scope.addCard(card); //Creates new card
         } else {
-          $mdToast.show($mdToast.simple().textContent("Card was not created"));
+          $mdToast.show($mdToast.simple().textContent($scope.createcard_error));
         }
       }, function() {
         //Empty description - Doesn't create card
-        $mdToast.show($mdToast.simple().textContent("Card was not created"));
+        $mdToast.show($mdToast.simple().textContent($scope.createcard_error));
       });
     };
 
     //Show the dialog to edit a card
     $scope.editCardDialog = function(ev, index, card) {
       var dialog = $mdDialog.prompt()
-            .title('Edit card')
+            .title($scope.editcard_dialog_title)
             .placeholder('description')
             .initialValue(card.content)
             .ariaLabel('Card description')
@@ -296,26 +407,26 @@
           card.content = result;
           $scope.editCard(card); //Edit card
         } else {
-          $mdToast.show($mdToast.simple().textContent("Card was not edited"));
+          $mdToast.show($mdToast.simple().textContent($scope.editcard_error));
         }
       }, function() {
         //Empty description - Doesn't create card
-        $mdToast.show($mdToast.simple().textContent("Card was not edited"));
+        $mdToast.show($mdToast.simple().textContent($scope.editcard_error));
       });
     };
 
     //Delete card in $scope array and in database
     $scope.deleteCardDialog = function(index, card) {
       var dialog = $mdDialog.confirm()
-            .title('Delete card')
-            .textContent('Are you sure you want to delete this card?')
+            .title($scope.deletecard_dialog_title)
+            .textContent($scope.deletecard_dialog_content)
             .ariaLabel('Delete card')
-            .ok('ok')
-            .cancel('cancel');
+            .ok($scope.dialog_ok)
+            .cancel($scope.dialog_cancel);
       $mdDialog.show(dialog).then(function() {
         $scope.deleteCard(index, card);
       }, function() {
-        //cancel
+        $mdToast.show($mdToast.simple().textContent($scope.deletecard_error));
       });
     };
 
@@ -323,19 +434,19 @@
     $scope.addNewBoardDialog = function(ev) {
       var board = { owner: $window.sessionStorage.getItem('userID') };
       var boardTitleDialog = $mdDialog.prompt()
-            .title('Board title')
-            .placeholder('title')
+            .title($scope.createboard_dialog_name)
+            .placeholder($scope.dialog_title)
             .ariaLabel('Board title')
             .targetEvent(ev)
-            .ok('next')
-            .cancel('cancel');
+            .ok($scope.dialog_next)
+            .cancel($scope.dialog_cancel);
       var boardDescriptionDialog = $mdDialog.prompt()
-            .title('Board description')
-            .placeholder('description')
+            .title($scope.createboard_dialog_description)
+            .placeholder($scope.dialog_description)
             .ariaLabel('Board description')
             .targetEvent(ev)
-            .ok('save')
-            .cancel('cancel');
+            .ok($scope.dialog_save)
+            .cancel($scope.dialog_cancel);
       //Show board title dialog
       $mdDialog.show(boardTitleDialog).then(function(resultTitle) {
         if(resultTitle != '' && resultTitle != undefined) {
@@ -347,77 +458,77 @@
               board.description = resultDescription;
               $scope.addBoard(board);
             } else {
-              $mdToast.show($mdToast.simple().textContent("Board was not created"));
+              $mdToast.show($mdToast.simple().textContent($scope.createboard_error));
             }
           }, function() {
-            $mdToast.show($mdToast.simple().textContent("Board was not created"));
+            $mdToast.show($mdToast.simple().textContent($scope.createboard_error));
           });
         } else {
-          $mdToast.show($mdToast.simple().textContent("Board was not created"));
+          $mdToast.show($mdToast.simple().textContent($scope.createboard_error));
         }
       }, function() {
-        $mdToast.show($mdToast.simple().textContent("Board was not created"));
+        $mdToast.show($mdToast.simple().textContent($scope.createboard_error));
       });
     };
 
     //Edit board name dialog
     $scope.editBoardNameDialog = function(ev, index, board) {
       var dialog = $mdDialog.prompt()
-            .title('Edit board name')
-            .placeholder('board name')
+            .title($scope.editboard_dialog_name)
+            .placeholder($scope.dialog_title)
             .initialValue(board.name)
             .ariaLabel('Board name')
             .targetEvent(ev)
-            .ok('save')
-            .cancel('cancel');
+            .ok($scope.dialog_save)
+            .cancel($scope.dialog_cancel);
       $mdDialog.show(dialog).then(function(result) {
         if(result != '' && result != undefined) {
           board.name = result;
           $scope.editBoard(board); //Edit card
         } else {
-          $mdToast.show($mdToast.simple().textContent("Board was not edited"));
+          $mdToast.show($mdToast.simple().textContent($scope.editboard));
         }
       }, function() {
         //Empty description - Doesn't create card
-        $mdToast.show($mdToast.simple().textContent("Board was not edited"));
+        $mdToast.show($mdToast.simple().textContent($scope.editboard_error));
       });
     };
 
     //Edit board description dialog
     $scope.editBoardDescriptionDialog = function(ev, index, board) {
       var dialog = $mdDialog.prompt()
-            .title('Edit board description')
-            .placeholder('board description')
+            .title($scope.editboard_dialog_description)
+            .placeholder($scope.dialog_description)
             .initialValue(board.description)
             .ariaLabel('Board description')
             .targetEvent(ev)
-            .ok('save')
-            .cancel('cancel');
+            .ok($scope.dialog_save)
+            .cancel($scope.dialog_cancel);
       $mdDialog.show(dialog).then(function(result) {
         if(result != '' && result != undefined) {
           board.description = result;
           $scope.editBoard(board); //Edit card
         } else {
-          $mdToast.show($mdToast.simple().textContent("Board was not edited"));
+          $mdToast.show($mdToast.simple().textContent($scope.editboard_error));
         }
       }, function() {
         //Empty description - Doesn't create card
-        $mdToast.show($mdToast.simple().textContent("Board was not edited"));
+        $mdToast.show($mdToast.simple().textContent($scope.editboard_error));
       });
     };
 
     //Delete board dialog
     $scope.deleteBoardDialog = function(index, board) {
       var dialog = $mdDialog.confirm()
-            .title('Delete board')
-            .textContent('Are you sure you want to delete this board? All associated cards will be deleted')
+            .title($scope.deleteboard_dialog_title)
+            .textContent($scope.deleteboard_dialog_content)
             .ariaLabel('Delete board')
-            .ok('ok')
-            .cancel('cancel');
+            .ok($scope.dialog_ok)
+            .cancel($scope.dialog_cancel);
       $mdDialog.show(dialog).then(function() {
         $scope.deleteBoard(index, board);
         }, function() {
-          //cancel
+          $mdToast.show($mdToast.simple().textContent($scope.deleteboard_error));
         });
     };
 
@@ -425,8 +536,8 @@
     $scope.getBoardsAndCards();
   };
 
-  kanbanController.$inject = ['$scope', '$mdSidenav', '$log', '$mdDialog', '$mdToast',
-  '$location', '$window', '$interval', 'kanbanFactory', 'dragulaService'];
+  kanbanController.$inject = ['$rootScope', '$scope', '$mdSidenav', '$log', '$mdDialog', '$mdToast',
+  '$location', '$window', '$interval', '$translate', '$route', 'kanbanFactory', 'dragulaService'];
 
   angular.module('kanban-board')
     .controller('kanbanController', kanbanController);

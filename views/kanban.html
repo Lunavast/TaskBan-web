@@ -20,10 +20,19 @@
           <!-- Logout -->
           <md-menu-item>
             <md-button ng-click="logoutDialog()">
-              Close session
+              {{ 'logout' | translate }}
             </md-button>
           </md-menu-item>
-        </md-menu-content>
+          <md-menu-item>
+            <md-button ng-click="translateToEnglish()">
+              {{ 'translate_english' | translate }}
+            </md-button>
+          </md-menu-item>
+          <md-menu-item>
+            <md-button ng-click="translateToSpanish()">
+              {{ 'translate_spanish' | translate }}
+            </md-button>
+          </md-menu-item>
       </md-menu>
     </div>
   </md-toolbar>
@@ -31,19 +40,19 @@
                       ng-class="kanban.selectedMode" class="md-fab-bottom-right speed-dial">
     <md-fab-trigger>
       <md-button aria-label="menu" class="md-fab">
-        <md-tooltip md-direction="left" md-visible="tooltipVisible">Create</md-tooltip>
+        <md-tooltip md-direction="left" md-visible="tooltipVisible">{{ 'create' | translate }}</md-tooltip>
         <md-icon md-svg-icon="img/icons/ic_add_white_24px.svg"></md-icon>
       </md-button>
     </md-fab-trigger>
     <md-fab-actions>
       <!-- Add new card -->
       <md-button aria-label="Create card" class="md-fab md-primary md-mini" ng-click="addNewCardDialog($event)">
-        <md-tooltip md-direction="left" md-visible="tooltipVisible">Create card</md-tooltip>
+        <md-tooltip md-direction="left" md-visible="tooltipVisible">{{ 'create_card' | translate }}</md-tooltip>
         <md-icon md-svg-icon="img/icons/ic_view_stream_white_24px.svg"></md-icon>
       </md-button>
       <!-- Add new board -->
       <md-button aria-label="Create board" class="md-fab md-primary md-mini"  ng-click="addNewBoardDialog($event)">
-        <md-tooltip md-direction="left" md-visible="tooltipVisible">Create board</md-tooltip>
+        <md-tooltip md-direction="left" md-visible="tooltipVisible">{{ 'create_board' | translate }}</md-tooltip>
         <md-icon md-svg-icon="img/icons/ic_view_week_white_24px.svg"></md-icon>
       </md-button>
     </md-fab-actions>
@@ -62,7 +71,7 @@
       </md-toolbar>
       <md-toolbar class="md-theme-light md-whiteframe-2dp" layout="row">
         <div class="md-toolbar-tools" id="kanban-boards-label">
-          Kanban boards
+          {{ 'kanban_boards' | translate }}
         </div>
       </md-toolbar>
         <md-list>
@@ -76,9 +85,9 @@
                 <md-icon md-svg-icon="img/icons/ic_more_vert_grey_24px.svg"></md-icon>
               </md-button>
               <md-menu-content width="4">
-                <md-menu-item><md-button ng-click="editBoardNameDialog($event, $index, board)">Edit name</md-button></md-menu-item>
-                <md-menu-item><md-button ng-click="editBoardDescriptionDialog($event, $index, board)">Edit description</md-button></md-menu-item>
-                <md-menu-item><md-button ng-click="deleteBoardDialog($index, board)">Delete board</md-button></md-menu-item>
+                <md-menu-item><md-button ng-click="editBoardNameDialog($event, $index, board)">{{ 'edit_name' | translate }}</md-button></md-menu-item>
+                <md-menu-item><md-button ng-click="editBoardDescriptionDialog($event, $index, board)">{{ 'edit_description' | translate }}</md-button></md-menu-item>
+                <md-menu-item><md-button ng-click="deleteBoardDialog($index, board)">{{ 'delete_board' | translate }}</md-button></md-menu-item>
               </md-menu-content>
             </md-menu>
             <md-divider ng-if="!$last"></md-divider>
@@ -88,7 +97,7 @@
     <!-- Ready cards -->
     <div flex-gt-xs="25" class='ready'>
       <md-whiteframe class="md-whiteframe-1dp" layout layout-align="center center" id='ready-title'>
-        <h3>To do</h3>
+        <h3>{{ 'todo' | translate }}</h3>
       </md-whiteframe>
       <md-list class='list kanban-list' dragula="'first-bag'" dragula-model='readyCards'>
         <md-card layout="row" class='ready-card' ng-repeat='card in readyCards'>
@@ -99,8 +108,8 @@
               <md-icon md-svg-icon="img/icons/ic_more_vert_grey_24px.svg"></md-icon>
             </md-button>
             <md-menu-content width="4">
-              <md-menu-item><md-button ng-click="editCardDialog($event, $index, card)">Edit card</md-button></md-menu-item>
-              <md-menu-item><md-button ng-click="deleteCardDialog($index, card)">Delete card</md-button></md-menu-item>
+              <md-menu-item><md-button ng-click="editCardDialog($event, $index, card)">{{ 'edit_card' | translate }}</md-button></md-menu-item>
+              <md-menu-item><md-button ng-click="deleteCardDialog($index, card)">{{ 'delete_card' | translate }}</md-button></md-menu-item>
             </md-menu-content>
           </md-menu>
         </md-card>
@@ -109,7 +118,7 @@
     <!-- In progress cards -->
     <div flex-gt-xs="25" class='inprogress'>
       <md-whiteframe class="md-whiteframe-1dp" layout layout-align="center center" id='inprogress-title'>
-        <h3>In progress</h3>
+        <h3>{{ 'inprogress' | translate }}</h3>
       </md-whiteframe>
       <md-list class='list kanban-list' dragula="'first-bag'" dragula-model='inprogressCards'>
         <md-card layout="row" class='inprogress-card' ng-repeat='card in inprogressCards'>
@@ -120,8 +129,8 @@
               <md-icon md-svg-icon="img/icons/ic_more_vert_grey_24px.svg"></md-icon>
             </md-button>
             <md-menu-content width="4">
-              <md-menu-item><md-button ng-click="editCardDialog($event, $index, card)">Edit card</md-button></md-menu-item>
-              <md-menu-item><md-button ng-click="deleteCardDialog($index, card)">Delete card</md-button></md-menu-item>
+              <md-menu-item><md-button ng-click="editCardDialog($event, $index, card)">{{ 'edit_card' | translate }}</md-button></md-menu-item>
+              <md-menu-item><md-button ng-click="deleteCardDialog($index, card)">{{ 'delete_card' | translate }}</md-button></md-menu-item>
             </md-menu-content>
           </md-menu>
         </md-card>
@@ -130,7 +139,7 @@
     <!-- Paused cards -->
     <div flex-gt-xs="25" class='paused'>
       <md-whiteframe class="md-whiteframe-1dp" layout layout-align="center center" id='paused-title'>
-        <h3>Paused</h3>
+        <h3>{{ 'paused' | translate }}</h3>
       </md-whiteframe>
       <md-list class='list kanban-list' dragula="'first-bag'" dragula-model='pausedCards'>
         <md-card layout="row" class='paused-card' ng-repeat='card in pausedCards'>
@@ -141,8 +150,8 @@
               <md-icon md-svg-icon="img/icons/ic_more_vert_grey_24px.svg"></md-icon>
             </md-button>
             <md-menu-content width="4">
-              <md-menu-item><md-button ng-click="editCardDialog($event, $index, card)">Edit card</md-button></md-menu-item>
-              <md-menu-item><md-button ng-click="deleteCardDialog($index, card)">Delete card</md-button></md-menu-item>
+              <md-menu-item><md-button ng-click="editCardDialog($event, $index, card)">{{ 'edit_card' | translate }}</md-button></md-menu-item>
+              <md-menu-item><md-button ng-click="deleteCardDialog($index, card)">{{ 'delete_card' | translate }}</md-button></md-menu-item>
             </md-menu-content>
           </md-menu>
         </md-card>
@@ -151,7 +160,7 @@
     <!-- Testing cards -->
     <div flex-gt-xs="25" class='testing'>
       <md-whiteframe class="md-whiteframe-1dp" layout layout-align="center center" id='testing-title'>
-        <h3>Testing</h3>
+        <h3>{{ 'testing' | translate }}</h3>
       </md-whiteframe>
       <md-list class='list kanban-list' dragula="'first-bag'" dragula-model='testingCards'>
         <md-card layout="row" class='testing-card' ng-repeat='card in testingCards'>
@@ -162,8 +171,8 @@
               <md-icon md-svg-icon="img/icons/ic_more_vert_grey_24px.svg"></md-icon>
             </md-button>
             <md-menu-content width="4">
-              <md-menu-item><md-button ng-click="editCardDialog($event, $index, card)">Edit card</md-button></md-menu-item>
-              <md-menu-item><md-button ng-click="deleteCardDialog($index, card)">Delete card</md-button></md-menu-item>
+              <md-menu-item><md-button ng-click="editCardDialog($event, $index, card)">{{ 'edit_card' | translate }}</md-button></md-menu-item>
+              <md-menu-item><md-button ng-click="deleteCardDialog($index, card)">{{ 'delete_card' | translate }}</md-button></md-menu-item>
             </md-menu-content>
           </md-menu>
         </md-card>
@@ -172,7 +181,7 @@
     <!-- Done cards -->
     <div flex-gt-xs="25" class='done'>
       <md-whiteframe class="md-whiteframe-1dp" layout layout-align="center center" id='done-title'>
-        <h3>Done</h3>
+        <h3>{{ 'done' | translate }}</h3>
       </md-whiteframe>
       <md-list class='list kanban-list' dragula="'first-bag'" dragula-model='doneCards'>
         <md-card layout="row" class='done-card' ng-repeat='card in doneCards'>
@@ -183,8 +192,8 @@
               <md-icon md-svg-icon="img/icons/ic_more_vert_grey_24px.svg"></md-icon>
             </md-button>
             <md-menu-content width="4">
-              <md-menu-item><md-button ng-click="editCardDialog($event, $index, card)">Edit card</md-button></md-menu-item>
-              <md-menu-item><md-button ng-click="deleteCardDialog($index, card)">Delete card</md-button></md-menu-item>
+              <md-menu-item><md-button ng-click="editCardDialog($event, $index, card)">{{ 'edit_card' | translate }}</md-button></md-menu-item>
+              <md-menu-item><md-button ng-click="deleteCardDialog($index, card)">{{ 'delete_card' | translate }}</md-button></md-menu-item>
             </md-menu-content>
           </md-menu>
         </md-card>
