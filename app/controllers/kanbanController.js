@@ -400,8 +400,8 @@
             .initialValue(card.content)
             .ariaLabel('Card description')
             .targetEvent(ev)
-            .ok('save')
-            .cancel('cancel');
+            .ok($scope.dialog_save)
+            .cancel($scope.dialog_cancel);
       $mdDialog.show(dialog).then(function(result) {
         if(result != '' && result != undefined) {
           card.content = result;

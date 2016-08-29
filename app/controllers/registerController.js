@@ -42,7 +42,7 @@
             //Show a message to activate the user account
             $mdToast.show($mdToast.simple()
             .textContent($scope.activation_message)
-            .action($scope.ok)
+            .action($scope.dialog_ok)
             .highlightAction(true)
             .highlightClass('md-accent'));
           } else { //register error
