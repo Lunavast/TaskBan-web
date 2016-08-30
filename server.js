@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 var router = express.Router();
 var morgan = require('morgan');
 var mongoose = require('mongoose');
+var path = require('path');
 var jwt = require('jsonwebtoken');
 var validator = require('email-validator');
 var nodemailer = require('nodemailer');
@@ -106,9 +107,9 @@ router.post('/users/register', function(req, res) {
                   var mailOptions = {
                       from: '"Taskban" <taskbanapp@gmail.com>', // sender address
                       to: newUser.email, // list of receivers
-                      subject: 'Taskban account activation', // Subject line
-                      html: 'To activate your account, click in the following URL:</p><p>'
-                      + config.url + ':' + config.port + '/users/email-verification/'
+                      subject: 'Activación de tu cuenta de Taskban', // Subject line
+                      html: 'Para activar tu cuenta, entra en la siguiente URL:</p><p>'
+                      + config.url + '/users/email-verification/'
                       + createdTempUser.GENERATED_VERIFYING_URL +  '</p>'// html body
                   };
                   // send mail with defined transport object
@@ -140,7 +141,7 @@ router.post('/users/register', function(req, res) {
 router.get('/users/email-verification/:url', function(req, res) {
   TempUser.findOneAndRemove({GENERATED_VERIFYING_URL: req.params.url}, function(err, tempUser) {
     if(err) {
-      res.json({ "success": false, "message": 'Temporal user with this URL not found' });
+      res.sendFile(path.join(__dirname + '/views/activationError.html'));
     } else if(tempUser != null) {
       var newUser = new User({
         username: tempUser.username,
@@ -149,24 +150,24 @@ router.get('/users/email-verification/:url', function(req, res) {
       });
       newUser.save(function(err) { //Save the new user
         if (err) {
-          res.json({ "success": false, "message": 'Error activating user' });
+          res.sendFile(path.join(__dirname + '/views/activationError.html'));
         } else {
           //Send email to the user
           var mailOptions = {
               from: '"Taskban" <taskbanapp@gmail.com>', // sender address
               to: newUser.email, // list of receivers
-              subject: 'Taskban account activation', // Subject line
-              text: 'Your account has been successfully activated. Now you can login with your account. Enjoy Taskban!'
+              subject: 'Activación de tu cuenta de Taskban', // Subject line
+              text: 'Tu cuenta de Taskban se ha activado correctamente. Ya puedes iniciar sesión con tu cuenta. ¡Disfruta de Taskban!'
           };
           transporter.sendMail(mailOptions, function(error, info){
             if(error) return console.log(error);
-            res.json({ "success": true, "message": 'User successfully registered and activated' });
+            res.sendFile(path.join(__dirname + '/views/activation.html'));
             transporter.close();
           });
         }
       });
     } else {
-      res.json({ "success": false, "message": 'Error activating user' });
+      res.sendFile(path.join(__dirname + '/views/activationError.html'));
     }
   });
 });

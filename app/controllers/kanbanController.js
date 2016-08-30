@@ -150,8 +150,8 @@
             $scope.toolbarTitle = $scope.boards[0].name;
           } else { //if not, creates one
             var jsonBoard = {
-              name: 'My kanban board',
-              description: 'This is your first kanban board!',
+              name: $scope.first_kanban_name,
+              description: $scope.first_kanban_description,
               owner: $window.sessionStorage.getItem('userID')
             };
             $scope.addBoard(jsonBoard);
