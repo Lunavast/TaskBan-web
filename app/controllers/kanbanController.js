@@ -273,6 +273,7 @@
       kanbanFactory.createBoard(board, $window.sessionStorage.getItem('token'))
         .success(function(response) {
           $scope.boards.push(response.message);
+          $scope.switchBoard(response.message);
         })
         .error(function(response, status) {
           $scope.showAlert();
