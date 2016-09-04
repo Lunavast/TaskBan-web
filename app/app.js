@@ -1,5 +1,6 @@
 (function() {
 
+  //Main AngularJS module. Used to route between views and store  the translations
   var app = angular.module('kanban-board', [angularDragula(angular), 'ngMaterial', 'ngAnimate',
   'ngMessages', 'ngRoute', 'pascalprecht.translate']);
 
@@ -16,12 +17,11 @@
         templateUrl: 'views/register.html'
       })
       .when('/kanban', {
-        controller: 'kanbanController',
         templateUrl: 'views/kanban.html'
       })
       .otherwise( { redirectTo: '/login' } );
 
-      //Translations
+      //English translations
       $translateProvider.translations('en', {
         'translate_english': 'Translate to English',
         'translate_spanish': 'Translate to Spanish',
@@ -83,6 +83,7 @@
         'dialog_description': 'description'
       });
 
+      //Spanish translations
       $translateProvider.translations('es', {
         'translate_english': 'Traducir al inglés',
         'translate_spanish': 'Traducir al español',

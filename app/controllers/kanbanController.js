@@ -1,5 +1,6 @@
 (function() {
 
+  //Controller used with kanban.html view
   var kanbanController = function($rootScope, $scope, $mdSidenav, $log, $mdDialog, $mdToast,
     $location, $window, $interval, $translate, $route, kanbanFactory, dragulaService) {
 
@@ -21,11 +22,11 @@
     this.username = $window.sessionStorage.getItem('username');
     this.email = $window.sessionStorage.getItem('email');
 
+    //Translate functions
     $scope.translateToEnglish = function() {
       $translate.use('en');
       $route.reload();
     };
-
     $scope.translateToSpanish = function() {
       $translate.use('es');
       $route.reload();
@@ -165,6 +166,7 @@
     };
 
     //Check the new card category to save
+    // params: card
     $scope.checkCategory = function(card) {
       switch (card.category) {
         case 'ready':
@@ -186,6 +188,7 @@
     };
 
     //Get the cards for a boards and show them using the factory
+    // params: board
     $scope.getCards = function(board) {
       kanbanFactory.getCards(board._id, $window.sessionStorage.getItem('token'))
         .success(function(response) {
@@ -200,6 +203,7 @@
     };
 
     //Create new card
+    // params: card
     $scope.addCard = function(card) {
       kanbanFactory.createCard($scope.actualBoard._id, card, $window.sessionStorage.getItem('token'))
         .success(function(response) {
@@ -212,6 +216,7 @@
     };
 
     //Edit card
+    // params: card
     $scope.editCard = function(card) {
       kanbanFactory.editCard($scope.actualBoard._id, card, $window.sessionStorage.getItem('token'))
         .success(function(response) {
@@ -223,6 +228,7 @@
     };
 
     //Delete card
+    // params: index (card position), card
     $scope.deleteCard = function(index, card) {
       kanbanFactory.deleteCard($scope.actualBoard._id, card, $window.sessionStorage.getItem('token'))
         .success(function(response) {
@@ -242,8 +248,8 @@
         });;
     };
 
+    //Clear cards arrays
     $scope.clearBoard = function() {
-      //Clear cards arrays
       $scope.readyCards = [];
       $scope.inprogressCards = [];
       $scope.pausedCards = [];
@@ -252,6 +258,7 @@
     };
 
     //Displays all cards for the selected board
+    // params: board
     $scope.switchBoard = function(board) {
       $scope.clearBoard();
       $scope.toolbarTitle = board.name; //set toolbar title
@@ -261,6 +268,7 @@
     };
 
     //Creates new board
+    // params: board
     $scope.addBoard = function(board) {
       kanbanFactory.createBoard(board, $window.sessionStorage.getItem('token'))
         .success(function(response) {
@@ -272,6 +280,7 @@
     };
 
     //Edit board
+    // params: board
     $scope.editBoard = function(board) {
       kanbanFactory.editBoard(board, $window.sessionStorage.getItem('token'))
         .success(function(response) {
@@ -283,6 +292,7 @@
     };
 
     //Delete board
+    // params: index (board position), board
     $scope.deleteBoard = function(index, board) {
       kanbanFactory.deleteBoard(board._id, $window.sessionStorage.getItem('token'))
         .success(function(response) {
@@ -300,12 +310,13 @@
         });;
     };
 
+    //Drag card event
     $scope.$on('first-bag.drag', function (e, el, container, source) {
       $scope.dragging = true;
-      console.log("Dragging card...");
     });
 
-    //Handles moving cards to different containers, and editing and saving them
+    //Drop card event
+    //Handles moving cards to different containers, editing and saving them
     $scope.$on('first-bag.drop', function (e, el, container, source) {
       console.log("Card dropped!");
       $scope.dragging = false;
@@ -328,22 +339,13 @@
       $scope.editCard(card); //Edita la tarjeta y la guarda
     });
 
-    $scope.$on('second-bag.over', function (e, el, container) {
-      console.log("Card over a bag...");
-    });
-
-    $scope.$on('second-bag.out', function (e, el, container) {
-      console.log("Card out a bag...");
-    });
-
-    //Left sidenav action
+    //Left sidenav hide and show actions
     $scope.toggleLeft = function() {
       $mdSidenav('left').toggle().then(function(){
-        //Action when toggle
       });
     };
 
-    //logout function
+    //Close the user session
     $scope.logoutDialog = function(ev) {
       var dialog = $mdDialog.confirm()
             .title($scope.logout_dialog_title)
@@ -393,6 +395,7 @@
     };
 
     //Show the dialog to edit a card
+    // params: index (card position), card
     $scope.editCardDialog = function(ev, index, card) {
       var dialog = $mdDialog.prompt()
             .title($scope.editcard_dialog_title)
@@ -416,6 +419,7 @@
     };
 
     //Delete card in $scope array and in database
+    // params: index (card position), card
     $scope.deleteCardDialog = function(index, card) {
       var dialog = $mdDialog.confirm()
             .title($scope.deletecard_dialog_title)
@@ -472,6 +476,7 @@
     };
 
     //Edit board name dialog
+    // params: index (board position), board
     $scope.editBoardNameDialog = function(ev, index, board) {
       var dialog = $mdDialog.prompt()
             .title($scope.editboard_dialog_name)
@@ -495,6 +500,7 @@
     };
 
     //Edit board description dialog
+    // params: index (board position), board
     $scope.editBoardDescriptionDialog = function(ev, index, board) {
       var dialog = $mdDialog.prompt()
             .title($scope.editboard_dialog_description)
@@ -518,6 +524,7 @@
     };
 
     //Delete board dialog
+    // params: index (board position), board
     $scope.deleteBoardDialog = function(index, board) {
       var dialog = $mdDialog.confirm()
             .title($scope.deleteboard_dialog_title)

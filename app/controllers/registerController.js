@@ -1,5 +1,6 @@
 (function() {
 
+  //Controller used with register.html
   var registerController = function($rootScope, $scope, $location, $mdDialog, $mdToast, $window, $translate, userFactory) {
 
     $scope.username = this.username;

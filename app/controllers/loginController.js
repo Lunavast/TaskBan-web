@@ -1,21 +1,12 @@
 (function() {
 
+  //Controller used with login.html view
   var loginController = function($rootScope, $scope, $location, $mdDialog, $mdToast, $window, $translate, userFactory) {
 
     $scope.username = this.username;
     $scope.password = this.password;
 
     //Translations
-
-    var lang = $window.navigator.language || $window.navigator.userLanguage;
-    if(lang == 'es' || lang == 'es-ES') {
-      console.log('Se detecta idioma español');
-      $translate.use(lang);
-    } else {
-      console.log('English language is detected');
-      $translate.use('en');
-    }
-
     $translate(['error_dialog_title', 'error_dialog_content', 'dialog_ok', 'login_error'])
     .then(function (translations) {
       $scope.error_dialog_title = translations.error_dialog_title;
@@ -28,6 +19,14 @@
       $scope.dialog_ok = translationIds.dialog_ok;
       $scope.login_error = translationIds.login_error;
     });
+
+    //Select the browser language
+    var lang = $window.navigator.language || $window.navigator.userLanguage;
+    if(lang == 'es' || lang == 'es-ES') {
+      $translate.use(lang);
+    } else {
+      $translate.use('en');
+    }
 
     //Error dialog
     $scope.showAlert = function() {
@@ -65,7 +64,7 @@
         });
     };
 
-    //Switch to register page
+    //Switch to register view
     $scope.goRegister = function() {
       $location.path('/register');
     };

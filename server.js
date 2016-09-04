@@ -36,7 +36,7 @@ var smtpConfig = {
 var transporter = nodemailer.createTransport(smtpConfig);
 
 /*===========================
-          User API
+          Users API
 ============================*/
 
 //login with existing user
