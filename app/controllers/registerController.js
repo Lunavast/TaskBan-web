@@ -31,7 +31,7 @@
         .title($scope.error_dialog_title)
         .textContent($scope.error_dialog_content)
         .ariaLabel('Error dialog')
-        .ok($scope.ok)
+        .ok($scope.dialog_ok)
       );
     };
 

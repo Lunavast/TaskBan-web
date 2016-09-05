@@ -9,6 +9,7 @@ var path = require('path');
 var jwt = require('jsonwebtoken');
 var validator = require('email-validator');
 var nodemailer = require('nodemailer');
+var smtpTransport = require('nodemailer-smtp-transport');
 var randtoken = require('rand-token');
 var User = require('./models/user');
 var TempUser = require('./models/tempUser');
@@ -24,16 +25,16 @@ app.use(morgan("dev")); //log the requests to the console
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({"extended" : false}));
 
-var smtpConfig = {
-    host: 'smtp.gmail.com',
-    port: 465,
-    secure: true, // use SSL
+var transporter = nodemailer.createTransport(smtpTransport({
+    service: 'gmail',
     auth: {
         user: config.email,
         pass: config.password
+    },
+    tls: {
+        rejectUnauthorized: false
     }
-};
-var transporter = nodemailer.createTransport(smtpConfig);
+}));
 
 /*===========================
           Users API

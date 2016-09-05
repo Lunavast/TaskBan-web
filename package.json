@@ -13,6 +13,7 @@
     "angular-mocks": "^1.5.5",
     "angular-route": "^1.5.5",
     "angular-sanitize": "^1.5.5",
+    "angular-translate": "^2.11.1",
     "bcryptjs": "^2.3.0",
     "body-parser": "^1.14.2",
     "email-validator": "^1.0.4",
@@ -21,8 +22,8 @@
     "mongoose": "^4.4.14",
     "morgan": "^1.6.1",
     "nodemailer": "^2.5.0",
-    "rand-token": "^0.2.1",
-    "angular-translate": "^2.11.1"
+    "nodemailer-smtp-transport": "^2.7.2",
+    "rand-token": "^0.2.1"
   },
   "engines": {
     "node": "4.3.0",
